@@ -2,10 +2,12 @@ plugins {
     id 'com.android.application'
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-
     defaultConfig {
         applicationId "com.gachon.dawaga"
         minSdkVersion 16
@@ -41,6 +43,25 @@ dependencies {
     implementation "com.github.prolificinteractive:material-calendarview:1.4.3"
     // viewpager indicator
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
+
+
+
+    implementation platform('com.google.firebase:firebase-bom:27.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    // Declare the dependency for the Firebase Authentication library
+    implementation 'com.google.firebase:firebase-auth'
+
+    // Google login
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+
+    // facebook
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 
 }
