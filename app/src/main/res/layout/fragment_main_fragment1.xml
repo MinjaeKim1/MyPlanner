@@ -5,16 +5,8 @@
     android:orientation="vertical"
     android:background="#69E36B">
 
-    <Button
-        android:id="@+id/calendar_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
-        android:text="calendarView로 이동하기"
-        android:layout_gravity="center"/>
-
     <TextView
+        android:layout_marginTop="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2020년 11월 05일"
