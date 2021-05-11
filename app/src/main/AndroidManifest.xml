@@ -26,6 +26,10 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".makeAppointment"></activity>
+        <activity android:name=".datePickerActivity" android:theme="@style/myDialog"></activity>
+        <activity android:name=".timePickerActivity" android:theme="@style/myDialog"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
         <meta-data android:name="android.max_aspect" android:value="2.1" />
