@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="약속 이름"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/appoName"/>
+    </LinearLayout>
+
+    <View style="@style/Divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜"
+            android:id="@+id/btnDate"
+            android:background="@color/teal_200"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="yyyy/mm/dd"
+            android:id="@+id/editDate" />
+
+    </LinearLayout>
+
+    <View style="@style/Divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="시간"
+            android:id="@+id/btnTime"
+            android:background="@color/teal_200"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hh:mm"
+            android:id="@+id/editTime" />
+    </LinearLayout>
+
+    <View style="@style/Divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지각비"
+            android:id="@+id/lateMoney"/>
+        <EditText
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:id="@+id/editLateMoney"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회비"
+            android:id="@+id/meetingMoney"/>
+        <EditText
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:gravity="right"
+            android:id="@+id/editMeeingMoney"/>
+
+    </LinearLayout>
+
+    <View style="@style/Divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="준비시간"
+            android:layout_marginLeft="20dp"/>
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="hh"
+            android:id="@+id/readyHour"/>
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="mm"
+            android:id="@+id/readyMin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여유시간"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="hh"
+            android:id="@+id/marginHour"/>
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="mm"
+            android:id="@+id/marginMin"/>
+
+    </LinearLayout>
+
+    <View style="@style/Divider"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알람 여부"
+        android:layout_gravity="center"
+        android:id="@+id/checkAlarm"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치 정보 공유"
+        android:layout_gravity="center"
+        android:id="@+id/checkLocation"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="남은 시간 공유"
+        android:layout_gravity="center"
+        android:id="@+id/checkTimeLeft"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="약속 생성하기"
+        android:id="@+id/btnMakeAppointment"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="@color/teal_200"/>
+
+
+
+</LinearLayout>
