@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".makeAppointment"/>
+        <activity android:name=".makeAppointment"></activity>
         <activity android:name=".datePickerActivity" android:theme="@style/Theme.AppCompat.Dialog"></activity>
         <activity android:name=".timePickerActivity" android:theme="@style/Theme.AppCompat.Dialog"></activity>
     </application>
