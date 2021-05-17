@@ -1,17 +1,21 @@
 package com.gachon.dawaga;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.rd.PageIndicatorView;
 
@@ -20,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    FloatingActionButton makeNewAppo;
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navigationView = (NavigationView) findViewById(R.id.navigationView);
+        makeNewAppo = (FloatingActionButton) findViewById(R.id.btnMakeNewAppointment);
+
 
         toolbar = findViewById(R.id.toolbar);
         //상단 툴바 설정
@@ -91,6 +99,15 @@ public class MainActivity extends AppCompatActivity {
         PageIndicatorView pageIndicatorView = findViewById(R.id.page_indicator_view);
         pageIndicatorView.setCount(5); // specify total count of indicators
         pageIndicatorView.setSelection(0);
+
+
+        makeNewAppo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent makeAppoIntent = new Intent(getApplicationContext(), makeAppointment.class);
+                startActivity(makeAppoIntent);
+            }
+        });
 
         /*
         Button loginBtn = (Button) findViewById(R.id.btn_goToLogin);

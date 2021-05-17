@@ -3,13 +3,19 @@ package com.gachon.dawaga;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 //약속을 생성하기 위해 가장 먼저 불러야 할 activity
 //메인이나 다른 activity에서 이 activity를 intent로 부르면 사용가능
@@ -140,6 +146,23 @@ public class makeAppointment extends AppCompatActivity {
         //아래 선언문은 새로운 약속 object를 생성하고 sampleDatabase에 집어넣는 부분입니다
         myAppointment newAppointment = new myAppointment(title, date, time, lateMoney, meetingMoney, readyTime,
                 marginTime, alarm, location, timeLeft);
-        SimpleDB.addAppointment(title, newAppointment);
+        Uploader(newAppointment);
+    }
+
+    private void Uploader(myAppointment newAppointment){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Info").add(newAppointment)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getApplicationContext(),"약속 생성을 성공하였습니다", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),"약속 생성을 실패하였습니다", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

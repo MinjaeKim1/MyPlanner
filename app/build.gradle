@@ -71,6 +71,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
+    //Import firestore for DB(BoM은 위에 이미 선언되어있음)
+    implementation 'com.google.firebase:firebase-firestore'
+
 
     // facebook
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
