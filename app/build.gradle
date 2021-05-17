@@ -74,6 +74,7 @@ dependencies {
     //Import firestore for DB(BoM은 위에 이미 선언되어있음)
     implementation 'com.google.firebase:firebase-firestore'
 
+
     // facebook
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 

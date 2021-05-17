@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     FloatingActionButton makeNewAppo;
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         makeNewAppo = (FloatingActionButton) findViewById(R.id.btnMakeNewAppointment);
+
 
         toolbar = findViewById(R.id.toolbar);
         //상단 툴바 설정
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         PageIndicatorView pageIndicatorView = findViewById(R.id.page_indicator_view);
         pageIndicatorView.setCount(5); // specify total count of indicators
         pageIndicatorView.setSelection(0);
+
 
         makeNewAppo.setOnClickListener(new View.OnClickListener() {
             @Override
