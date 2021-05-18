@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gachon.dawaga.util.Firestore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -62,7 +63,6 @@ public class SignUpActivity extends AppCompatActivity {
     };
 
     private void signUp(){
-
         EditText e_text = (EditText)findViewById(R.id.emailEditText);
         EditText p_text = (EditText)findViewById(R.id.passwordEditText);
         EditText p_ch_text = (EditText)findViewById(R.id.passwordCheckEditText);
@@ -81,9 +81,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    startToast("회원가입에 성공하였습니다.");
-                                    //UI
+                                    // DB 생성 작업
+                                    createNewUserDatabase(task.getResult().getUser());
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     if (task.getException() != null) {
@@ -99,6 +98,27 @@ public class SignUpActivity extends AppCompatActivity {
         }else {
             startToast("이메일 또는 비밀번호를 입력해 주세요.");
         }
+    }
+
+    /**
+     * 새로운 사용자의 DB 정보를 생성한다
+     * @author Taehyun Park
+     */
+    private void createNewUserDatabase(FirebaseUser user) {
+        // 새 유저 정보 작성
+        Firestore.writeNewUser(user.getUid(), user.getEmail(), user.getEmail())
+                .addOnCompleteListener(documentTask -> {
+                    // 성공했다면
+                    if(documentTask.isSuccessful()) {
+                        startToast("회원가입에 성공하였습니다.");
+                    }
+                    // 실패했다면
+                    else {
+                        // 에러 메시지 띄우고 로그아웃
+                        Toast.makeText(getApplicationContext(), R.string.login_error, Toast.LENGTH_LONG).show();
+                        mAuth.signOut();
+                    }
+                });
     }
 
     private void startToast(String msg) {
