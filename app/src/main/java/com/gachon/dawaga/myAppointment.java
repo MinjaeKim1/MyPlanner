@@ -1,10 +1,13 @@
 package com.gachon.dawaga;
 
+
+import java.sql.Timestamp;
+
 //약속에 대한 metadata를 정의하는 object입니다
 public class myAppointment {
+    String writer;
     String title;
-    String date;
-    String time;
+    Timestamp dateTime;
     int lateMoney;
     int meetingMoney;
     String readyTime;
@@ -13,10 +16,10 @@ public class myAppointment {
     boolean location;
     boolean timeLeft;
 
-    public myAppointment(String title, String date, String time, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft){
+    public myAppointment(String writer, String title, Timestamp dt, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft){
+        this.writer = writer;
         this.title = title;
-        this.date = date;
-        this.time = time;
+        this.dateTime = dt;
         this.lateMoney = lateMoney;
         this.meetingMoney = meetingMoney;
         this.readyTime = readyTime;
@@ -28,9 +31,9 @@ public class myAppointment {
 
     public myAppointment(){}
 
+    public String getWriter(){return this.writer;}
     public String getTitle(){return this.title;}
-    public String getDate(){return this.date;}
-    public String getTime(){return this.time;}
+    public Timestamp getDateTime(){return this.dateTime;}
     public int getLateMoney(){return this.lateMoney;}
     public int getMeetingMoney(){return this.meetingMoney;}
     public String getReadyTime(){return this.readyTime;}
@@ -38,9 +41,10 @@ public class myAppointment {
     public boolean getAlarm(){return this.alarm;}
     public boolean getLocation(){return this.location;}
     public boolean getTimeLeft(){return this.timeLeft;}
+
+    public void setWriter(String writer){this.writer = writer;}
     public void setTitle(String title){this.title = title;}
-    public void setDate(String date){this.date = date;}
-    public void setTime(String time){this.time = time;}
+    public void setDateTime(Timestamp dateTime){this.dateTime = dateTime;}
     public void setLateMoney(int lateMoney){this.lateMoney = lateMoney;}
     public void setMeetingMoney(int meetingMoney){this.meetingMoney = meetingMoney;}
     public void setReadyTime(String readyTime){this.readyTime = readyTime;}

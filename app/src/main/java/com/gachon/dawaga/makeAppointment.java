@@ -12,15 +12,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gachon.dawaga.util.Auth;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Timestamp;
+
 //약속을 생성하기 위해 가장 먼저 불러야 할 activity
 //메인이나 다른 activity에서 이 activity를 intent로 부르면 사용가능
 public class makeAppointment extends AppCompatActivity {
-    private myAppointment myAppo;
     private EditText EditAppoName;
     private EditText EditAppoDate;
     private EditText EditAppoTime;
@@ -94,16 +96,16 @@ public class makeAppointment extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
             case 0:
-                int year = data.getIntExtra("Year", 2000);
+                int year = data.getIntExtra("Year", 2022);
                 int month = data.getIntExtra("Month", 1);
                 int day = data.getIntExtra("Day", 1);
-                String newDate = year+"/"+month+"/"+ day;
+                String newDate = year+"-"+month+"-"+ day;
                 EditAppoDate.setText(newDate);
                 break;
             case 1:
                 int hour = data.getIntExtra("Hour", 12);
                 int minute = data.getIntExtra("Minute", 0);
-                String newTime = hour+":"+minute;
+                String newTime = hour+":"+minute+":"+"0.0";
                 EditAppoTime.setText(newTime);
                 break;
         }
@@ -111,9 +113,11 @@ public class makeAppointment extends AppCompatActivity {
 
     //작성된 약속정보를 바탕으로 약속정보를 불러온 후 새로운 myAppointment object를 DB에 넣는 함수
     private void Upload(){
+        String writer = Auth.getCurrentUser().getUid();
         String title = EditAppoName.getText().toString();
         String date = EditAppoDate.getText().toString();
         String time = EditAppoTime.getText().toString();
+        Timestamp dateTime = Timestamp.valueOf(date+" "+time);
         int lateMoney;
         if(checkLateMoney.isChecked()){
             lateMoney = Integer.parseInt(EditLateMoney.getText().toString());
@@ -144,7 +148,7 @@ public class makeAppointment extends AppCompatActivity {
         }
         //함수 시작부터 여기까지는 작성된 값을 읽어오는 부분입니다
         //아래 선언문은 새로운 약속 object를 생성하고 sampleDatabase에 집어넣는 부분입니다
-        myAppointment newAppointment = new myAppointment(title, date, time, lateMoney, meetingMoney, readyTime,
+        myAppointment newAppointment = new myAppointment(writer, title, dateTime, lateMoney, meetingMoney, readyTime,
                 marginTime, alarm, location, timeLeft);
         Uploader(newAppointment);
     }
