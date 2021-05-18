@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.sql.Timestamp;
 
 //약속을 생성하기 위해 가장 먼저 불러야 할 activity
 //메인이나 다른 activity에서 이 activity를 intent로 부르면 사용가능
@@ -105,7 +104,7 @@ public class makeAppointment extends AppCompatActivity {
             case 1:
                 int hour = data.getIntExtra("Hour", 12);
                 int minute = data.getIntExtra("Minute", 0);
-                String newTime = hour+":"+minute+":"+"0.0";
+                String newTime = hour+":"+minute+":"+"00";
                 EditAppoTime.setText(newTime);
                 break;
         }
@@ -117,7 +116,7 @@ public class makeAppointment extends AppCompatActivity {
         String title = EditAppoName.getText().toString();
         String date = EditAppoDate.getText().toString();
         String time = EditAppoTime.getText().toString();
-        Timestamp dateTime = Timestamp.valueOf(date+" "+time);
+        String dateTime = date+" "+time;
         int lateMoney;
         if(checkLateMoney.isChecked()){
             lateMoney = Integer.parseInt(EditLateMoney.getText().toString());
