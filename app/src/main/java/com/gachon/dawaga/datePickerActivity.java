@@ -39,7 +39,7 @@ public class datePickerActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.putExtra("Year", year);
-                intent.putExtra("Month", month);
+                intent.putExtra("Month", month+1);
                 intent.putExtra("Day", day);
                 setResult(RESULT_OK, intent);
                 finish();
