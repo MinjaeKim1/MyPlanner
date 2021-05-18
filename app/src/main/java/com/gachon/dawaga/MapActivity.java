@@ -1,12 +1,14 @@
 package com.gachon.dawaga;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.database.DatabaseReference;
 import com.naver.maps.geometry.LatLng;
@@ -21,11 +23,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private DatabaseReference mDatabase;
     private MapView mapView;
+    Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        toolbar = findViewById(R.id.toolbar_map);
+        //상단 툴바 설정
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowCustomEnabled(true); // 커스터마이징 하기 위해 필요
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#55e6c3"))); // 툴바 배경색
 
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);

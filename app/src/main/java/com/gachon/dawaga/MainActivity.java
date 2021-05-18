@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent_map);
                         break;
 
+                    case R.id.item_friend:
+                        Intent intent_friend = new Intent (MainActivity.this, Friend_list.class);
+                        startActivity(intent_friend);
+                        break;
+
                     case R.id.item_logout:
                         Toast.makeText(getApplicationContext(),"로그아웃 예정입니다.",Toast.LENGTH_LONG).show();
                         break;
