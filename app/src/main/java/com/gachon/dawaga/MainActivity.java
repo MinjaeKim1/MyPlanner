@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,8 +18,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.gachon.dawaga.util.Auth;
+import com.gachon.dawaga.util.Firestore;
+import com.gachon.dawaga.util.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.rd.PageIndicatorView;
 
 
@@ -25,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     Toolbar toolbar;
     FloatingActionButton makeNewAppo;
-
+    TextView tv_name;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -44,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         makeNewAppo = (FloatingActionButton) findViewById(R.id.btnMakeNewAppointment);
-
+        View header = navigationView.getHeaderView(0);
+        tv_name = (TextView) header.findViewById(R.id.tv_name);
 
         toolbar = findViewById(R.id.toolbar);
         //상단 툴바 설정
@@ -56,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   // 툴바 메뉴버튼 생성
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu); // 메뉴 버튼 모양 설정
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#55e6c3"))); // 툴바 배경색
+
+        // 로그인 후 프로필 표시
+        setProfile();
 
         // 네비게이션 뷰 아이템 클릭시 이뤄지는 이벤트
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -113,17 +125,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(makeAppoIntent);
             }
         });
+    }
 
-        /*
-        Button loginBtn = (Button) findViewById(R.id.btn_goToLogin);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+    private void setProfile(){
+        Firestore.getUserData(Auth.getCurrentUser().getUid()).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                User user = task.getResult().toObject(User.class);
+                if(user != null){
+                    tv_name.setText(user.getUserNickName() + "님");
+                }else {
+                    // failed.
+                    Log.d("MainActivity.this", "user object is NULL.");
+                }
             }
         });
-        */
     }
+
 
 }
