@@ -1,15 +1,24 @@
 package com.gachon.dawaga;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -51,29 +60,37 @@ public class Friend_list extends AppCompatActivity implements MyRecyclerAdapter.
         recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(this);
 
+        Button button = findViewById(R.id.appendFriend);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_main = new Intent (Friend_list.this, AppendFriend.class);
+                startActivity(intent_main);
+            }
+        });
     }
 
     @Override
     public void onItemClicked(int position) {
-        Toast.makeText(getApplicationContext(), "Item : "+position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Item : "+position, Toast.LENGTH_SHORT).show();
     }
 
     public void onTitleClicked(int position) {
-        Toast.makeText(getApplicationContext(), "Title : "+position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Title : "+position, Toast.LENGTH_SHORT).show();
     }
 
     public void onContentClicked(int position) {
-        Toast.makeText(getApplicationContext(), "Content : "+position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Content : "+position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onImageViewClicked(int position) {
-        Toast.makeText(getApplicationContext(), "Image : "+position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Image : "+position, Toast.LENGTH_SHORT).show();
     }
 
     public void onItemLongClicked(int position) {
-        adapter.remove(position);
-        Toast.makeText(getApplicationContext(),
-                dataList.get(position).getTitle()+" is removed",Toast.LENGTH_SHORT).show();
+        //adapter.remove(position);
+        //Toast.makeText(getApplicationContext(),
+                //dataList.get(position).getTitle()+" is removed",Toast.LENGTH_SHORT).show();
     }
 }
