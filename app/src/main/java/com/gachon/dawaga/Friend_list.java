@@ -43,6 +43,7 @@ public class Friend_list extends AppCompatActivity implements MyRecyclerAdapter.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_friends_list);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);

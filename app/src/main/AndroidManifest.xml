@@ -48,6 +48,19 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" /> </intent-filter>
         </activity>
 
+        <!-- firebase -cloud messaging for push alarm -->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
     </application>
 
 
@@ -64,6 +77,9 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+
+
 
 
 </manifest>
