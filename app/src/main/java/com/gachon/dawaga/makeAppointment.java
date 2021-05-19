@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import androidx.core.app.NotificationCompat;
 import com.gachon.dawaga.util.Auth;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.api.Distribution;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -49,6 +52,7 @@ public class makeAppointment extends AppCompatActivity {
     private CheckBox checkAlarm;
     private CheckBox checkLoc;
     private CheckBox checkTimeLeft;
+    private LinearLayout alarmSect;
 
     // Alarm
     private AlarmManager alarmManager;
@@ -56,6 +60,10 @@ public class makeAppointment extends AppCompatActivity {
     private NotificationManager notificationManager;
     NotificationCompat.Builder builder;
     final static String TAG ="makeAppointmentActivity";
+
+    public int alarm_day;
+    public int alarm_hour;
+    public int alarm_minute;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,18 +89,26 @@ public class makeAppointment extends AppCompatActivity {
         checkAlarm = findViewById(R.id.checkAlarm);
         checkLoc = findViewById(R.id.checkLocation);
         checkTimeLeft = findViewById(R.id.checkTimeLeft);
+        alarmSect = findViewById(R.id.alarmSect);
 
 
         //자바와 xml파일의 버튼을 연결해주는 과정
         findViewById(R.id.btnDate).setOnClickListener(onClickListener);
         findViewById(R.id.btnTime).setOnClickListener(onClickListener);
         findViewById(R.id.btnMakeAppointment).setOnClickListener(onClickListener);
+        findViewById(R.id.btnAlarm).setOnClickListener(onClickListener);
 
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         mCalender = new GregorianCalendar();
-        Log.v("Calendar check", mCalender.getTime().toString());
+        Log.d(TAG,"Calendar check: "+ mCalender.getTime().toString());
 
+        checkAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(isChecked){
+                alarmSect.setVisibility(View.VISIBLE);
+            }else{alarmSect.setVisibility(View.GONE); }}
+        });
 
     }
 
@@ -106,6 +122,10 @@ public class makeAppointment extends AppCompatActivity {
             case R.id.btnTime:
                 Intent intent2 = new Intent(makeAppointment.this, timePickerActivity.class);
                 startActivityForResult(intent2, 1);
+                break;
+            case R.id.btnAlarm:
+                Intent intent3 = new Intent(makeAppointment.this, alarmPickerActivity.class);
+                startActivityForResult(intent3, 2);
                 break;
             case R.id.btnMakeAppointment:
                 Upload();
@@ -132,6 +152,11 @@ public class makeAppointment extends AppCompatActivity {
                 String newTime = hour+":"+minute+":"+"00";
                 EditAppoTime.setText(newTime);
                 break;
+            case 2:
+                alarm_day = data.getIntExtra("Day",0);
+                alarm_hour = data.getIntExtra("Hour", 0);
+                alarm_minute = data.getIntExtra("Minute", 0);
+                break;
         }
     }
 
@@ -142,6 +167,7 @@ public class makeAppointment extends AppCompatActivity {
         String date = EditAppoDate.getText().toString();
         String time = EditAppoTime.getText().toString();
         String dateTime = date+" "+time;
+        Log.d(TAG,"dateTime check: "+ dateTime);
         int lateMoney;
         if(checkLateMoney.isChecked()){
             lateMoney = Integer.parseInt(EditLateMoney.getText().toString());
@@ -164,6 +190,7 @@ public class makeAppointment extends AppCompatActivity {
         if(checkAlarm.isChecked()){
             alarm = true;
         }
+
         if(checkLoc.isChecked()){
             location = true;
         }
@@ -173,13 +200,14 @@ public class makeAppointment extends AppCompatActivity {
         //함수 시작부터 여기까지는 작성된 값을 읽어오는 부분입니다
         //아래 선언문은 새로운 약속 object를 생성하고 sampleDatabase에 집어넣는 부분입니다
         myAppointment newAppointment = new myAppointment(writer, title, dateTime, lateMoney, meetingMoney, readyTime,
-                marginTime, alarm, location, timeLeft);
+                marginTime, alarm, location, timeLeft, alarm_day,alarm_hour,alarm_minute);
         Uploader(newAppointment);
 
         //setAlarm();
         if(alarm=true) {
             setAlarm(newAppointment);
             Log.d(TAG,"알람이 설정되었습니다.");
+
         }
     }
 
@@ -217,9 +245,12 @@ public class makeAppointment extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(datetime);
+        calendar.add(Calendar.DATE,alarm_day*-1);
+        calendar.add(Calendar.HOUR_OF_DAY,alarm_hour*-1);
+        calendar.add(Calendar.MINUTE,alarm_minute*-1);
 
         alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(),pendingIntent);
-
+        Log.d(TAG,"알람예정 시각: "+ calendar.getTime().toString());
 
     }
 

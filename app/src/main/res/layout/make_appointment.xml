@@ -141,13 +141,33 @@
 
     <View style="@style/Divider"/>
 
+    <LinearLayout
+            android:id="@+id/alarmSect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            >
+            <Button
+                android:id="@+id/btnAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/teal_200"
+                android:text="알람설정" />
+            <EditText
+                android:id="@+id/editAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Before: hh/dd/mm" />
+        </LinearLayout>
+
     <CheckBox
+        android:id="@+id/checkAlarm"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="알람 여부"
-        android:layout_gravity="center"
-        android:id="@+id/checkAlarm"/>
-
+        android:text="알람 여부" />
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

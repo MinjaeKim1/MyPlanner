@@ -34,6 +34,7 @@
         <activity android:name=".timePickerActivity" android:theme="@style/myDialog"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".alarmPickerActivity"></activity>
         <meta-data android:name="android.max_aspect" android:value="2.1" />
 
         <!-- External API -->
