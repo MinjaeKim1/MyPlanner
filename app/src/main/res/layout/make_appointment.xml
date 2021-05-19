@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
-            android:visibility="visible"
+            android:visibility="gone"
             >
             <Button
                 android:id="@+id/btnAlarm"
