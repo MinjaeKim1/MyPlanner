@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.auth.FirebaseAuth;
 import com.rd.PageIndicatorView;
 
 
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     FloatingActionButton makeNewAppo;
     TextView tv_name;
+    private static final String TAG = "MainActivity";
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -100,7 +103,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.item_logout:
-                        Toast.makeText(getApplicationContext(),"로그아웃 예정입니다.",Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut();
+                        Log.d(TAG,"sign-out success");
+                        Intent intent_signOut = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent_signOut);
+                        Toast.makeText(getApplicationContext(),"Logged out.",Toast.LENGTH_LONG).show();
                         break;
                 }
                 return true;

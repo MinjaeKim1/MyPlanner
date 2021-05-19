@@ -91,8 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                 // ...
             }
         });
-
-
     }
 
     @Override
@@ -108,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.loginButton:
                     login();
-                    break;
+                        break;
                 case R.id.googleLogin:
                     loginByGoogle();
                     break;
@@ -156,41 +154,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    // Login by facebook
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            startMainActivity();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            startToast("Fail to login by FaceBook ");
-                        }
-
-                        // ...
-                    }
-                });
-    }
-
-    private void startToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    private void startMainActivity(){
-        Intent intent = new Intent (this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
     // responding activity request
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -227,7 +190,42 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
+
+    // Login by facebook
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            startMainActivity();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            startToast("Fail to login by FaceBook ");
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
+    private void startToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void startMainActivity(){
+        Intent intent = new Intent (this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
 }
 
