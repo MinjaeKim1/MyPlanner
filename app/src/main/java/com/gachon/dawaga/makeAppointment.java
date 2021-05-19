@@ -1,7 +1,13 @@
 package com.gachon.dawaga;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -11,12 +17,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.gachon.dawaga.util.Auth;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 //약속을 생성하기 위해 가장 먼저 불러야 할 activity
@@ -37,6 +50,12 @@ public class makeAppointment extends AppCompatActivity {
     private CheckBox checkLoc;
     private CheckBox checkTimeLeft;
 
+    // Alarm
+    private AlarmManager alarmManager;
+    private GregorianCalendar mCalender;
+    private NotificationManager notificationManager;
+    NotificationCompat.Builder builder;
+    final static String TAG ="makeAppointmentActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,6 +87,12 @@ public class makeAppointment extends AppCompatActivity {
         findViewById(R.id.btnDate).setOnClickListener(onClickListener);
         findViewById(R.id.btnTime).setOnClickListener(onClickListener);
         findViewById(R.id.btnMakeAppointment).setOnClickListener(onClickListener);
+
+        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        mCalender = new GregorianCalendar();
+        Log.v("Calendar check", mCalender.getTime().toString());
+
 
     }
 
@@ -150,6 +175,12 @@ public class makeAppointment extends AppCompatActivity {
         myAppointment newAppointment = new myAppointment(writer, title, dateTime, lateMoney, meetingMoney, readyTime,
                 marginTime, alarm, location, timeLeft);
         Uploader(newAppointment);
+
+        //setAlarm();
+        if(alarm=true) {
+            setAlarm(newAppointment);
+            Log.d(TAG,"알람이 설정되었습니다.");
+        }
     }
 
     private void Uploader(myAppointment newAppointment){
@@ -168,4 +199,28 @@ public class makeAppointment extends AppCompatActivity {
                     }
                 });
     }
+
+    private void setAlarm(myAppointment appointment) {
+        //Pass values to Alarm Receiver
+        Intent receiverIntent = new Intent(makeAppointment.this, AlarmReceiver.class);
+        receiverIntent.putExtra("title",appointment.getTitle());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(makeAppointment.this, 11, receiverIntent, 0);
+        String msg = appointment.getDateTime();
+        //날짜 포맷을 바꿔주는 소스코드
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date datetime = null;
+        try {
+            datetime = dateFormat.parse(msg);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(datetime);
+
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(),pendingIntent);
+
+
+    }
+
 }
