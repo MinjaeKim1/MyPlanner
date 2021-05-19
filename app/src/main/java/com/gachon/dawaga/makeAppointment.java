@@ -60,6 +60,7 @@ public class makeAppointment extends AppCompatActivity {
     private NotificationManager notificationManager;
     NotificationCompat.Builder builder;
     final static String TAG ="makeAppointmentActivity";
+    private EditText EditAppoAlarm;
 
     public int alarm_day;
     public int alarm_hour;
@@ -90,6 +91,9 @@ public class makeAppointment extends AppCompatActivity {
         checkLoc = findViewById(R.id.checkLocation);
         checkTimeLeft = findViewById(R.id.checkTimeLeft);
         alarmSect = findViewById(R.id.alarmSect);
+
+        //Alarm set
+        EditAppoAlarm = findViewById(R.id.editAlarm);
 
 
         //자바와 xml파일의 버튼을 연결해주는 과정
@@ -156,6 +160,7 @@ public class makeAppointment extends AppCompatActivity {
                 alarm_day = data.getIntExtra("Day",0);
                 alarm_hour = data.getIntExtra("Hour", 0);
                 alarm_minute = data.getIntExtra("Minute", 0);
+                EditAppoAlarm.setText(alarm_day+"D : " +alarm_hour+"H : "+alarm_minute+"M before" );
                 break;
         }
     }
@@ -167,7 +172,7 @@ public class makeAppointment extends AppCompatActivity {
         String date = EditAppoDate.getText().toString();
         String time = EditAppoTime.getText().toString();
         String dateTime = date+" "+time;
-        Log.d(TAG,"dateTime check: "+ dateTime);
+        Log.d(TAG,"일정 시각: "+ dateTime);
         int lateMoney;
         if(checkLateMoney.isChecked()){
             lateMoney = Integer.parseInt(EditLateMoney.getText().toString());
