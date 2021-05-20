@@ -26,10 +26,21 @@
         </TextView>
     </androidx.appcompat.widget.Toolbar>
 
+    <Button
+        android:id="@+id/appendFriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="친구 추가" />
+    <Button
+        android:id="@+id/loadFriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="친구 목록 불러오기" />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"
-        android:background="#F0F0F0"/>
+        android:background="#F0F0F0">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

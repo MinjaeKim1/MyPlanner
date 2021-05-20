@@ -16,8 +16,13 @@ public class myAppointment {
     boolean alarm;
     boolean location;
     boolean timeLeft;
+    //alarm
+    int a_day;
+    int a_hour;
+    int a_minute;
 
-    public myAppointment(String writer, String title, String date, String dt, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft){
+
+    public myAppointment(String writer, String title, String date, String dt, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft, int day, int hour, int minute){
         this.writer = writer;
         this.title = title;
         this.date = date;
@@ -29,6 +34,9 @@ public class myAppointment {
         this.alarm = alarm;
         this.location = location;
         this.timeLeft = timeLeft;
+        this.a_day = day;
+        this.a_hour = hour;
+        this.a_minute = minute;
     }
 
     public myAppointment(){}
