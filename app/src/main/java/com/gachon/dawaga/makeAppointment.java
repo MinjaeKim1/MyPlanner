@@ -147,7 +147,7 @@ public class makeAppointment extends AppCompatActivity {
         }
         //함수 시작부터 여기까지는 작성된 값을 읽어오는 부분입니다
         //아래 선언문은 새로운 약속 object를 생성하고 sampleDatabase에 집어넣는 부분입니다
-        myAppointment newAppointment = new myAppointment(writer, title, dateTime, lateMoney, meetingMoney, readyTime,
+        myAppointment newAppointment = new myAppointment(writer, title, date, dateTime, lateMoney, meetingMoney, readyTime,
                 marginTime, alarm, location, timeLeft);
         Uploader(newAppointment);
     }

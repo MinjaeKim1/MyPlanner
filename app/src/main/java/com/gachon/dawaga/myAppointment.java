@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 public class myAppointment {
     String writer;
     String title;
+    String date;
     String dateTime;
     int lateMoney;
     int meetingMoney;
@@ -16,9 +17,10 @@ public class myAppointment {
     boolean location;
     boolean timeLeft;
 
-    public myAppointment(String writer, String title, String dt, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft){
+    public myAppointment(String writer, String title, String date, String dt, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft){
         this.writer = writer;
         this.title = title;
+        this.date = date;
         this.dateTime = dt;
         this.lateMoney = lateMoney;
         this.meetingMoney = meetingMoney;
@@ -33,6 +35,7 @@ public class myAppointment {
 
     public String getWriter(){return this.writer;}
     public String getTitle(){return this.title;}
+    public String getDate(){return this.date;}
     public String getDateTime(){return this.dateTime;}
     public int getLateMoney(){return this.lateMoney;}
     public int getMeetingMoney(){return this.meetingMoney;}
@@ -44,6 +47,7 @@ public class myAppointment {
 
     public void setWriter(String writer){this.writer = writer;}
     public void setTitle(String title){this.title = title;}
+    public void setDate(){this.date = date;}
     public void setDateTime(String dateTime){this.dateTime = dateTime;}
     public void setLateMoney(int lateMoney){this.lateMoney = lateMoney;}
     public void setMeetingMoney(int meetingMoney){this.meetingMoney = meetingMoney;}
