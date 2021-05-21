@@ -20,7 +20,6 @@
         <activity android:name=".Friend_list"></activity>
         <activity android:name=".AppendFriend"></activity>
 
-
         <activity android:name=".CalendarActivity"/>
         <activity android:name=".LoginActivity">
             <intent-filter>

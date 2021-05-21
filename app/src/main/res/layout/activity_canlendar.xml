@@ -10,20 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:mcv_selectionColor="#00F"
+        app:mcv_selectionColor="#50BAEA"
         app:mcv_showOtherDates="all"
         />
 
-    <TextView
-        android:id="@+id/calendar_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"/>
-
-    <androidx.recyclerview.widget.RecyclerView
+    <FrameLayout
+        android:id="@+id/fl_board"
+        android:background="?attr/colorOnPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:background="#00FFFFFF"/>
+        android:layout_weight="4"/>
+
 
 </LinearLayout>
