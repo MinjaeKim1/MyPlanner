@@ -39,6 +39,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         return mNumOfTabs;
     }
 
+    // #SH
     @Override
     public int getItemPosition(Object object){
         return POSITION_NONE;

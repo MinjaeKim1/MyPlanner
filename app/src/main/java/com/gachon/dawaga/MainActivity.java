@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> title;
     public ArrayList<Integer> calLeftTime;
 
+    // #SH 접근제어자 final -> public 변경
     public ViewPager viewPager;
     public MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 4);
 
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        // Set adapter (뷰페이저)
+        // #SH Set adapter (뷰페이저)  notifychanged 구현하기위해 public 으로 변경
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(myPagerAdapter);
         // Set PageIndicator
@@ -155,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("MainActivity_title",info.getTitle());
                             Log.d("MainActivity_LeftTime",Integer.toString(calculateTime(info.getDateTime())));
                         }
+                        // #SH firestore 잘 읽어오는지 확인
                         Log.d(TAG,"CalLeftTime: " + calLeftTime.size());
                     }
                     // 약속이 1개밖에 없다면 fragment1만 활성화시켜야함, 남은 시간, 약속 날짜(년/월/일), 약속 제목을 넘겨준다.
@@ -236,6 +238,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    // #SH notifychanged 프래그먼트 변화 감지시 발생
     @Override
     protected void onResume(){
         super.onResume();

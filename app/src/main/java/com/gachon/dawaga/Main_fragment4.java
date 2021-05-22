@@ -61,6 +61,7 @@ public class Main_fragment4 extends Fragment {
         return root;
     }
 
+    // #SH onresume에서 실행시 setVisibility(invisible)계속 실행되는 듯 -> 약속이없습니다 화면
     @Override
     public void onStart(){
         super.onStart();
@@ -74,11 +75,11 @@ public class Main_fragment4 extends Fragment {
             new CountDownTask().execute(); // Starts the CountDownTask
         }
         else{
-//            linear1.setVisibility(getView().INVISIBLE);
-//            linear2.setVisibility(getView().INVISIBLE);
-//            tv_title.setVisibility(getView().INVISIBLE);
-//            tv_info_gone.setVisibility(getView().VISIBLE);
-//            tv_info_gone.setText("약속이 없습니다.");
+            linear1.setVisibility(getView().INVISIBLE);
+            linear2.setVisibility(getView().INVISIBLE);
+            tv_title.setVisibility(getView().INVISIBLE);
+            tv_info_gone.setVisibility(getView().VISIBLE);
+            tv_info_gone.setText("약속이 없습니다.");
             System.out.println("no arguments");
         }
     }
@@ -159,11 +160,12 @@ public class Main_fragment4 extends Fragment {
             System.out.println("fragment4_dateArr[1] : " + dateArr[1]);
             System.out.println("fragment4_dateArr[2] : " + dateArr[2]);
 
+
             // ************** 여기서부터 화면에 제대로 참조가 안되는 문제 ****************
-//            tv_year.setText(dateArr[0] + "년");
-//            tv_month.setText(dateArr[1] + "월");
-//            tv_day.setText(dateArr[2] + "일");
-//            tv_title.setText(title + "마감시간까지");
+            tv_year.setText(dateArr[0] + "년");
+            tv_month.setText(dateArr[1] + "월");
+            tv_day.setText(dateArr[2] + "일");
+            tv_title.setText(title + "마감시간까지");
 
             if (year == 0) {
                 tv_left_year.setVisibility(getView().INVISIBLE);
@@ -178,18 +180,19 @@ public class Main_fragment4 extends Fragment {
                 tv_left_min.setVisibility(getView().INVISIBLE);
             }
 
-            tv_left_year.setText(year + "년");
-            tv_left_day.setText(day + "일");
-            tv_left_hour.setText(hour + "시간");
-            tv_left_min.setText(min + "분");
-            tv_left_sec.setText(sec + "초 남았습니다.");
+//            tv_left_year.setText(year + "년");
+//            tv_left_day.setText(day + "일");
+//            tv_left_hour.setText(hour + "시간");
+//            tv_left_min.setText(min + "분");
+//            tv_left_sec.setText(sec + "초 남았습니다.");
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             System.out.println("doInBackground!!!!!!!!!!!");
             // 1초마다 다음과 같은 연산을 수행하며 남은 시간 감소 시키기
-            while (year == 0 || sec == 0) {
+            // #SH loop 안돌길래  year == 0 && sec == 0 --> or 연산으로 임시적으로 대체했습니다.
+           while (year == 0 || sec == 0) {
                 System.out.println("doInBackground - looping test");
                 try {
                     Thread.sleep(1000);
