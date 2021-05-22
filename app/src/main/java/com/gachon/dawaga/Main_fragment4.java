@@ -2,6 +2,7 @@ package com.gachon.dawaga;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,26 +61,51 @@ public class Main_fragment4 extends Fragment {
         return root;
     }
 
-    // 남은 시간과 날짜, 약속 타이틀값을 받아온다 (성공)
     @Override
-    public void onResume() {
-        super.onResume();
-        if(getArguments() != null){
+    public void onStart(){
+        super.onStart();
+        if(getArguments() != null) {
             leftSec = getArguments().getInt("leftSec");
             date = getArguments().getString("date");
             title = getArguments().getString("title");
-            System.out.println("fragment4_leftSec : "+leftSec);
-            System.out.println("fragment4_date : "+date);
-            System.out.println("fragment4_title : "+title);
+            System.out.println("fragment4_leftSec : " + leftSec);
+            System.out.println("fragment4_date : " + date);
+            System.out.println("fragment4_title : " + title);
             new CountDownTask().execute(); // Starts the CountDownTask
-        }else{
-            linear1.setVisibility(getView().INVISIBLE);
-            linear2.setVisibility(getView().INVISIBLE);
-            tv_title.setVisibility(getView().INVISIBLE);
-            tv_info_gone.setVisibility(getView().VISIBLE);
-            tv_info_gone.setText("약속이 없습니다.");
+        }
+        else{
+//            linear1.setVisibility(getView().INVISIBLE);
+//            linear2.setVisibility(getView().INVISIBLE);
+//            tv_title.setVisibility(getView().INVISIBLE);
+//            tv_info_gone.setVisibility(getView().VISIBLE);
+//            tv_info_gone.setText("약속이 없습니다.");
+            System.out.println("no arguments");
         }
     }
+
+
+     // 남은 시간과 날짜, 약속 타이틀값을 받아온다 (성공)
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if(getArguments() != null) {
+//            leftSec = getArguments().getInt("leftSec");
+//            date = getArguments().getString("date");
+//            title = getArguments().getString("title");
+//            System.out.println("fragment4_leftSec : " + leftSec);
+//            System.out.println("fragment4_date : " + date);
+//            System.out.println("fragment4_title : " + title);
+//            new CountDownTask().execute(); // Starts the CountDownTask
+//        }
+//        else{
+//            linear1.setVisibility(getView().INVISIBLE);
+//            linear2.setVisibility(getView().INVISIBLE);
+//            tv_title.setVisibility(getView().INVISIBLE);
+//            tv_info_gone.setVisibility(getView().VISIBLE);
+//            tv_info_gone.setText("약속이 없습니다.");
+//            System.out.println("no arguments");
+//        }
+//    }
 
     public static Main_fragment4 getInstance(int leftSec, String date, String title) {
         Main_fragment4 main_fragment4 = new Main_fragment4();
@@ -134,10 +160,10 @@ public class Main_fragment4 extends Fragment {
             System.out.println("fragment4_dateArr[2] : " + dateArr[2]);
 
             // ************** 여기서부터 화면에 제대로 참조가 안되는 문제 ****************
-            tv_year.setText(dateArr[0] + "년");
-            tv_month.setText(dateArr[1] + "월");
-            tv_day.setText(dateArr[2] + "일");
-            tv_title.setText(title + "마감시간까지");
+//            tv_year.setText(dateArr[0] + "년");
+//            tv_month.setText(dateArr[1] + "월");
+//            tv_day.setText(dateArr[2] + "일");
+//            tv_title.setText(title + "마감시간까지");
 
             if (year == 0) {
                 tv_left_year.setVisibility(getView().INVISIBLE);
@@ -163,7 +189,8 @@ public class Main_fragment4 extends Fragment {
         protected Void doInBackground(Void... params) {
             System.out.println("doInBackground!!!!!!!!!!!");
             // 1초마다 다음과 같은 연산을 수행하며 남은 시간 감소 시키기
-            while (year == 0 && sec == 0) {
+            while (year == 0 || sec == 0) {
+                System.out.println("doInBackground - looping test");
                 try {
                     Thread.sleep(1000);
                     if (sec == 0 && min != 0) {
@@ -183,9 +210,12 @@ public class Main_fragment4 extends Fragment {
                         day = 365;
                     }
                     sec = sec - 1;
-                    publishProgress(year, day, hour, min, sec);
+
                 } catch (Exception e) {
+                    Log.d("publishprogress test","error");
                 }
+                publishProgress(year, day, hour, min, sec);
+                System.out.println("progress is pushed to onprogressupdate.");
             }
             return null;
         }

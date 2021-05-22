@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> title;
     public ArrayList<Integer> calLeftTime;
 
+    public ViewPager viewPager;
+    public MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 4);
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -129,8 +133,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set adapter (뷰페이저)
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 4);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(myPagerAdapter);
         // Set PageIndicator
         PageIndicatorView pageIndicatorView = findViewById(R.id.page_indicator_view);
@@ -152,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("MainActivity_title",info.getTitle());
                             Log.d("MainActivity_LeftTime",Integer.toString(calculateTime(info.getDateTime())));
                         }
+                        Log.d(TAG,"CalLeftTime: " + calLeftTime.size());
                     }
                     // 약속이 1개밖에 없다면 fragment1만 활성화시켜야함, 남은 시간, 약속 날짜(년/월/일), 약속 제목을 넘겨준다.
                     if(calLeftTime.size() == 1){
@@ -231,5 +235,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        myPagerAdapter.notifyDataSetChanged();
     }
 }
