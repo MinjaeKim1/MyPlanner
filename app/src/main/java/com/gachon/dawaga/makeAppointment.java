@@ -24,8 +24,10 @@ import androidx.core.app.NotificationCompat;
 import com.gachon.dawaga.util.Auth;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.api.Distribution;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -101,6 +103,7 @@ public class makeAppointment extends AppCompatActivity {
         findViewById(R.id.btnTime).setOnClickListener(onClickListener);
         findViewById(R.id.btnMakeAppointment).setOnClickListener(onClickListener);
         findViewById(R.id.btnAlarm).setOnClickListener(onClickListener);
+
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -254,7 +257,7 @@ public class makeAppointment extends AppCompatActivity {
     private void setAlarm(myAppointment appointment) {
         //Pass values to Alarm Receiver
         Intent receiverIntent = new Intent(makeAppointment.this, AlarmReceiver.class);
-        receiverIntent.putExtra("title", appointment.getTitle());
+        receiverIntent.putExtra("title",appointment.getTitle());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(makeAppointment.this, 11, receiverIntent, 0);
         String msg = appointment.getDateTime();
         //날짜 포맷을 바꿔주는 소스코드
@@ -268,13 +271,14 @@ public class makeAppointment extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(datetime);
-        calendar.add(Calendar.DATE, alarm_day * -1);
-        calendar.add(Calendar.HOUR_OF_DAY, alarm_hour * -1);
-        calendar.add(Calendar.MINUTE, alarm_minute * -1);
 
-        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-        Log.d(TAG, "알람예정 시각: " + calendar.getTime().toString());
+        calendar.add(Calendar.DATE,alarm_day*-1);
+        calendar.add(Calendar.HOUR_OF_DAY,alarm_hour*-1);
+        calendar.add(Calendar.MINUTE,alarm_minute*-1);
 
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(),pendingIntent);
+        Log.d(TAG,"알람예정 시각: "+ calendar.getTime().toString());
+      
     }
 
 }
