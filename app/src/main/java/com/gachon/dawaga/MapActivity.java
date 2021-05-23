@@ -1,29 +1,52 @@
 package com.gachon.dawaga;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.util.MarkerIcons;
+
+import java.util.Map;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private DatabaseReference mDatabase;
     private MapView mapView;
     Toolbar toolbar;
+
+    private static final String TAG = "MainActivity";
+
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    private static final String[] PERMISSIONS = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +62,33 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
         naverMapBasicSettings();
+
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference productRef = db.collection("user");
+        productRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = user.getUid();
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String uid2 = (String) document.getId();
+                        if (uid.equals(uid2)) {
+                            Map<String, Object> tempUserList = document.getData();
+                            for (String key : tempUserList.keySet()) {
+                                Toast.makeText(getApplicationContext(),
+                                        "sex", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "파이어베이스 연동 실패", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         String[] names = {"이동훈", "김상욱", "조승환", "박태현"};
         ListView listView = (ListView) findViewById(R.id.userlist);
