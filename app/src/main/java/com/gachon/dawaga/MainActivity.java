@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,18 +15,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.gachon.dawaga.base.BaseActivity;
+import com.gachon.dawaga.databinding.ActivityMainBinding;
+import com.gachon.dawaga.databinding.FragmentMainBinding;
+import com.gachon.dawaga.util.Auth;
+import com.gachon.dawaga.util.Firestore;
+import com.gachon.dawaga.util.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.auth.FirebaseAuth;
 import com.rd.PageIndicatorView;
+import java.util.ArrayList;
+
+import static com.gachon.dawaga.util.Util.calculateTime;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     FloatingActionButton makeNewAppo;
+    TextView tv_name;
+    private static final String TAG = "MainActivity";
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -40,20 +59,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected ActivityMainBinding getBinding() {
+        return ActivityMainBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         makeNewAppo = (FloatingActionButton) findViewById(R.id.btnMakeNewAppointment);
-
+        View header = navigationView.getHeaderView(0);
+        tv_name = (TextView) header.findViewById(R.id.tv_name);
         toolbar = findViewById(R.id.toolbar);
+
         //상단 툴바 설정
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowCustomEnabled(true); // 커스터마이징 하기 위해 필요
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   // 툴바 메뉴버튼 생성
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu); // 메뉴 버튼 모양 설정
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#55e6c3"))); // 툴바 배경색
+
+        // 로그인 후 프로필 표시
+        setProfile();
+
+        // mainFragment 연결
+        MainFragment mainFragment = new MainFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(binding.flInfo.getId(), mainFragment).commit();
 
         // 네비게이션 뷰 아이템 클릭시 이뤄지는 이벤트
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -68,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.item_main:
                         Intent intent_main = new Intent (MainActivity.this, MainActivity.class);
                         startActivity(intent_main);
+                        finish();
                         break;
 
                     case R.id.item_calendar:
@@ -80,23 +114,23 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent_map);
                         break;
 
+                    case R.id.item_friend:
+                        Intent intent_friend = new Intent (MainActivity.this, Friend_list.class);
+                        startActivity(intent_friend);
+                        break;
+
                     case R.id.item_logout:
-                        Toast.makeText(getApplicationContext(),"로그아웃 예정입니다.",Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut();
+                        Log.d(TAG,"sign-out success");
+                        Intent intent_signOut = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent_signOut);
+                        Toast.makeText(getApplicationContext(),"Logged out.",Toast.LENGTH_LONG).show();
                         break;
                 }
                 return true;
             }
+
         });
-
-        // set adapter
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 4);
-        viewPager.setAdapter(myPagerAdapter);
-
-        PageIndicatorView pageIndicatorView = findViewById(R.id.page_indicator_view);
-        pageIndicatorView.setCount(5); // specify total count of indicators
-        pageIndicatorView.setSelection(0);
 
         makeNewAppo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,17 +139,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(makeAppoIntent);
             }
         });
-
-        /*
-        Button loginBtn = (Button) findViewById(R.id.btn_goToLogin);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-        */
     }
 
+    private void setProfile(){
+        Firestore.getUserData(Auth.getCurrentUser().getUid()).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                User user = task.getResult().toObject(User.class);
+                if(user != null){
+                    tv_name.setText(user.getUserNickName() + "님");
+                }else {
+                    // failed.
+                    Log.d("MainActivity.this", "user object is NULL.");
+                }
+            }
+        });
+    }
+
+
+    // #SH notifychanged 프래그먼트 변화 감지시 발생
+    @Override
+    protected void onResume(){
+        super.onResume();
+    }
 }

@@ -173,6 +173,7 @@
             android:text="Before: dd/hh/mm" />
     </LinearLayout>
 
+
     <CheckBox
         android:id="@+id/checkAlarm"
         android:layout_width="wrap_content"
