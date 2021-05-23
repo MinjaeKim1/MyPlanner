@@ -17,7 +17,8 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="dxpds3tna7" />
         <activity android:name=".MapActivity"></activity>
-
+        <activity android:name=".Friend_list"></activity>
+        <activity android:name=".AppendFriend"></activity>
 
         <activity android:name=".CalendarActivity"/>
         <activity android:name=".LoginActivity">
@@ -32,6 +33,7 @@
         <activity android:name=".timePickerActivity" android:theme="@style/myDialog"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".alarmPickerActivity"></activity>
         <meta-data android:name="android.max_aspect" android:value="2.1" />
 
         <!-- External API -->
@@ -46,13 +48,36 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" /> </intent-filter>
         </activity>
 
+        <!-- firebase -cloud messaging for push alarm -->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+        <!-- push alarm setting -->
+        <receiver android:name=".DeviceBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".AlarmReceiver" />
     </application>
 
 
     <!-- permission 추가 -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -62,6 +87,10 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+
+
 
 
 </manifest>

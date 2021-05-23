@@ -17,10 +17,12 @@ public class myAppointment {
     boolean location;
     boolean timeLeft;
     ArrayList<String> friendsList;
+
     //alarm
     int a_day;
     int a_hour;
     int a_minute;
+
 
 
     public myAppointment(String writer, String title, String date, String dt, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft, int day, int hour, int minute, ArrayList<String> friendsList){
