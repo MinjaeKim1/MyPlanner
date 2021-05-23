@@ -34,8 +34,11 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".alarmPickerActivity"></activity>
+
+
         <activity android:name=".addFriendsToAppo" android:theme="@style/myDialog"/>
 
+>>>>>>> 8820983d41cfa29616425b82af6520ff75f37fdb
         <meta-data android:name="android.max_aspect" android:value="2.1" />
 
         <!-- External API -->
