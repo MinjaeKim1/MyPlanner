@@ -20,7 +20,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.gachon.dawaga.util.Auth;
+import com.gachon.dawaga.util.Firestore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,7 +33,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.naver.maps.geometry.LatLng;
@@ -40,18 +46,26 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.style.light.Position;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.util.MarkerIcons;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     Toolbar toolbar;
 
-    private static final String TAG = "MapnActivity";
+    ArrayList<Long> latList = new ArrayList<Long>();
+    ArrayList<Long> lonList = new ArrayList<Long>();
+    ArrayList<String> emailList = new ArrayList<String>();
+
+    private static final String TAG = "MapActivity";
 
     private static final int PERMISSION_REQUEST_CODE = 100;
     private static final String[] PERMISSIONS = {
@@ -60,12 +74,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     };
 
     private FusedLocationSource mLocationSource;
-    private NaverMap mNaverMap;
+    private static NaverMap mNaverMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
 
         toolbar = findViewById(R.id.toolbar_map);
         //상단 툴바 설정
@@ -73,21 +88,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         getSupportActionBar().setDisplayShowCustomEnabled(true); // 커스터마이징 하기 위해 필요
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#55e6c3"))); // 툴바 배경색
 
-        // 지도 객체 생성
-        FragmentManager fm = getSupportFragmentManager();
-        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
-        if (mapFragment == null) {
-            mapFragment = MapFragment.newInstance();
-            fm.beginTransaction().add(R.id.map, mapFragment).commit();
-        }
 
-        // getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
-        // onMapReady에서 NaverMap 객체를 받음
-        mapFragment.getMapAsync(this);
 
         // 위치를 반환하는 구현체인 FusedLocationSource 생성
         mLocationSource =
                 new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
+
 
         Button button = findViewById(R.id.sharelocation);
         button.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +155,119 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
+
+        Button button2 = findViewById(R.id.loadFriend);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 사용자의 약속 정보를 가져온다.
+                try {
+                    emailList.clear();
+                    latList.clear();
+                    lonList.clear();
+                    Firestore.getAllInfo(Auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            ArrayList<myAppointment> infoList = new ArrayList<>();
+                            if (task.isSuccessful()) {
+                                if(task.getResult().size() > 0) {
+                                    for (DocumentSnapshot doc : task.getResult()) {
+                                        myAppointment info = doc.toObject(myAppointment.class);
+                                        infoList.add(info);
+                                    }
+                                    try {
+                                        ArrayList<String> TempList = infoList.get(0).friendsList;
+                                        for (String EachUser : TempList) {
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            String uid = EachUser;
+                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                            CollectionReference productRef = db.collection("user");
+                                            productRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @RequiresApi(api = Build.VERSION_CODES.N)
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                                            String uid2 = (String) document.getId();
+                                                            if (uid.equals(uid2)) {
+                                                                String email = document.getString("userEmail");
+                                                                try {
+                                                                    Long lat = document.getLong("lat");
+                                                                    Long lon = document.getLong("long");
+                                                                    latList.add(lat);
+                                                                    lonList.add(lon);
+                                                                    emailList.add(email);
+                                                                } catch (Exception e) {
+                                                                }
+                                                            }
+                                                        }
+                                                        Toast.makeText(getApplicationContext(),
+                                                                "완료", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } catch (Exception e) {
+                                        Toast.makeText(getApplicationContext(),
+                                                "실패", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(),
+                                            "약속이 없습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(),
+                            "실패", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        Button button3 = findViewById(R.id.appearFriend);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Marker> markList = new ArrayList<Marker>();
+
+                if (emailList.size() > 0) {
+                    for (int i = 0; i < emailList.size(); i++) {
+                        Marker marker = new Marker();
+                        marker.setPosition(new LatLng(latList.get(i), lonList.get(i)));
+                        markList.add(marker);
+                    }
+                    for (Marker m : markList) {
+                        m.setMap(mNaverMap);
+                    }
+                }
+            }
+        });
+
+        // 지도 객체 생성
+        FragmentManager fm = getSupportFragmentManager();
+        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
+        if (mapFragment == null) {
+            mapFragment = MapFragment.newInstance();
+            fm.beginTransaction().add(R.id.map, mapFragment).commit();
+        }
+
+        // getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
+        // onMapReady에서 NaverMap 객체를 받음
+        mapFragment.getMapAsync(this);
+
+    }
+
+    private void setMarker(Marker marker,  double lat, double lng)
+    {
+        //원근감 표시
+        marker.setIconPerspectiveEnabled(true);
+        //마커의 투명도
+        marker.setAlpha(0.8f);
+        //마커 위치
+        marker.setPosition(new LatLng(lat, lng));
+        //마커 표시
+        marker.setMap(mNaverMap);
     }
 
     @Override

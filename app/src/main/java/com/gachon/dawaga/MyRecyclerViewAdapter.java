@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
@@ -18,6 +21,12 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
     private ArrayList<ItemData> itemData;
     public MyRecyclerAdapter(ArrayList<ItemData> itemData) {
         this.itemData = itemData;
+    }
+
+    public void setOnClickListener(OnCompleteListener<QuerySnapshot> querySnapshotOnCompleteListener) {
+    }
+
+    public void setOnClickListener(MapActivity mapActivity) {
     }
 
     public interface MyRecyclerViewClickListener{

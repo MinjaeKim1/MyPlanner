@@ -38,7 +38,7 @@ public class Friend_list extends AppCompatActivity implements MyRecyclerAdapter.
     Toolbar toolbar;
 
     final MyRecyclerAdapter adapter = new MyRecyclerAdapter(dataList);
-    int count = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
