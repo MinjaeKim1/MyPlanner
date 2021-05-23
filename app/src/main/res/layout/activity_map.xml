@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MapActivity"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -47,17 +48,26 @@
         </TextView>-->
 
     </LinearLayout>
-
-    <com.naver.maps.map.MapView
-        android:id="@+id/map_view"
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="500dp">
-    </com.naver.maps.map.MapView>
+        android:layout_height="500dp"
+        android:id="@+id/map"
+        android:name="com.naver.maps.map.MapFragment">
+    </fragment>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치 공유"
+        android:layout_gravity="center"
+        android:id="@+id/sharelocation">
+    </Button>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/userlist">
     </ListView>
+
 
 </LinearLayout>

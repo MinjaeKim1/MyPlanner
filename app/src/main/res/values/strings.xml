@@ -6,8 +6,8 @@
     <string name="fb_login_protocol_scheme">fb4009560545771277</string>
     <string name="login_error">login failed.</string>
     <string name="loading">로딩중</string>
-    <string name="default_notification_channel_id" translatable="false" >fcm_default_channel</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="default_notification_channel_name">com.google.firebase.messaging.default_notification_channel_id</string>
-<!--    <string name="default_notification_channel_id">Channel ID</string>-->
-<!--    <string name="default_notification_channel_name" translatable="true">Test</string>-->
+    <!--    <string name="default_notification_channel_id">Channel ID</string>-->
+    <!--    <string name="default_notification_channel_name" translatable="true">Test</string>-->
 </resources>
