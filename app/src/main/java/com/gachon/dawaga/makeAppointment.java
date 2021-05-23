@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -53,6 +54,7 @@ public class makeAppointment extends AppCompatActivity {
     private CheckBox checkLoc;
     private CheckBox checkTimeLeft;
     private LinearLayout alarmSect;
+    private ArrayList<String> friendsList;
 
     // Alarm
     private AlarmManager alarmManager;
@@ -74,6 +76,7 @@ public class makeAppointment extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setTitle("약속 생성");
         }
+        friendsList = new ArrayList<String>();
 
         //자바와 xml파일의 editText, checkBox등을 연결해주는 과정
         EditAppoName = findViewById(R.id.appoName);
@@ -101,6 +104,7 @@ public class makeAppointment extends AppCompatActivity {
         findViewById(R.id.btnTime).setOnClickListener(onClickListener);
         findViewById(R.id.btnMakeAppointment).setOnClickListener(onClickListener);
         findViewById(R.id.btnAlarm).setOnClickListener(onClickListener);
+        findViewById(R.id.btnAddFriendsToAppo).setOnClickListener(onClickListener);
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -139,6 +143,10 @@ public class makeAppointment extends AppCompatActivity {
                 Upload();
                 finish();
                 break;
+            case R.id.btnAddFriendsToAppo:
+                Intent intent4 = new Intent(makeAppointment.this, addFriendsToAppo.class);
+                startActivityForResult(intent4, 3);
+                break;
         }
     });
 
@@ -166,6 +174,18 @@ public class makeAppointment extends AppCompatActivity {
                 alarm_minute = data.getIntExtra("Minute", 0);
                 EditAppoAlarm.setText(alarm_day + "D : " + alarm_hour + "H : " + alarm_minute + "M before");
                 break;
+            case 3:
+                if(resultCode == RESULT_OK) {
+                    String friends = data.getStringExtra("Friends");
+                    Log.d("friend UID", friends);
+                    friendsList.clear();
+                    for (String friend : friends.split("/")) {
+                        friendsList.add(friend);
+                        Log.d("friend UID", friend);
+                    }
+                    Log.d("friend UID", "This is the end of Friends");
+                    break;
+                }
         }
     }
 
@@ -221,7 +241,7 @@ public class makeAppointment extends AppCompatActivity {
             //아래 선언문은 새로운 약속 object를 생성하고 sampleDatabase에 집어넣는 부분입니다
 
             myAppointment newAppointment = new myAppointment(writer, title, date, dateTime, lateMoney, meetingMoney, readyTime,
-                    marginTime, alarm, location, timeLeft, alarm_day, alarm_hour, alarm_minute);
+                    marginTime, alarm, location, timeLeft, alarm_day, alarm_hour, alarm_minute, friendsList);
 
             Uploader(newAppointment);
 
