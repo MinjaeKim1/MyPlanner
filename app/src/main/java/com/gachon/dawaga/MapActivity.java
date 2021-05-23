@@ -122,7 +122,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         }
                                         newFieldList.put("long", a);
                                         newFieldList.put("lat", b);
-                                        db.collection("Friend").document(user.getUid()).set(newFieldList)
+                                        db.collection("user").document(user.getUid()).set(newFieldList)
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
