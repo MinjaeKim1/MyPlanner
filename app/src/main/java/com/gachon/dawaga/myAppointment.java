@@ -1,7 +1,7 @@
 package com.gachon.dawaga;
 
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
 
 //약속에 대한 metadata를 정의하는 object입니다
 public class myAppointment {
@@ -16,13 +16,16 @@ public class myAppointment {
     boolean alarm;
     boolean location;
     boolean timeLeft;
+    ArrayList<String> friendsList;
+
     //alarm
     int a_day;
     int a_hour;
     int a_minute;
 
 
-    public myAppointment(String writer, String title, String date, String dt, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft, int day, int hour, int minute){
+
+    public myAppointment(String writer, String title, String date, String dt, int lateMoney, int meetingMoney, String readyTime, String marginTime, boolean alarm, boolean location, boolean timeLeft, int day, int hour, int minute, ArrayList<String> friendsList){
         this.writer = writer;
         this.title = title;
         this.date = date;
@@ -37,6 +40,7 @@ public class myAppointment {
         this.a_day = day;
         this.a_hour = hour;
         this.a_minute = minute;
+        this.friendsList = friendsList;
     }
 
     public myAppointment(){}
@@ -52,6 +56,7 @@ public class myAppointment {
     public boolean getAlarm(){return this.alarm;}
     public boolean getLocation(){return this.location;}
     public boolean getTimeLeft(){return this.timeLeft;}
+    public ArrayList<String> getFriendsList(){return this.friendsList;}
 
     public void setWriter(String writer){this.writer = writer;}
     public void setTitle(String title){this.title = title;}
@@ -64,5 +69,6 @@ public class myAppointment {
     public void setAlarm(boolean alarm){this.alarm = alarm;}
     public void setLocation(boolean location){this.location = location;}
     public void setTimeLeft(boolean timeLeft){this.timeLeft = timeLeft;}
+    public void setFriendsList(ArrayList<String> friendsList){this.friendsList = friendsList;}
 
 }
