@@ -61,7 +61,7 @@ public class Firestore {
      * @return Query
      */
     public static Query getAllInfo(String userId){
-        return getFirestoreInstance().collection("Info").whereEqualTo("writer",userId).limit(10);
+        return getFirestoreInstance().collection("Info").whereEqualTo("writer",userId).orderBy("dateTime", Query.Direction.ASCENDING).limit(10);
     }
 
     /*

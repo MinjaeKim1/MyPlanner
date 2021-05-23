@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gachon.dawaga.databinding.ItemMainBinding;
-import com.gachon.dawaga.util.Util;
 
 import java.util.ArrayList;
 

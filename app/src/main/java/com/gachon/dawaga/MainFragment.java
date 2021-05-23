@@ -56,18 +56,6 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> implements M
         return binding.getRoot();
     }
 
-    // 남은 시간과 날짜, 약속 타이틀값을 번들에 담아 보낸다.
-    /*
-    public static MainFragment getInstance(Integer leftSec, String date, String title) {
-        MainFragment mainfragment = new MainFragment();
-        Bundle args = new Bundle();
-        args.putInt("leftSec", leftSec.intValue());
-        args.putString("date", date);
-        args.putString("title", title);
-        mainfragment.setArguments(args);
-        return mainfragment;
-    }*/
-
     @Override
     public void onResume() {
         super.onResume();

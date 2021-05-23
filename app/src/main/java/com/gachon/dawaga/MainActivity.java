@@ -45,11 +45,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     TextView tv_name;
     private static final String TAG = "MainActivity";
 
-    // #SH 접근제어자 final -> public 변경
-    public ViewPager viewPager;
-    public MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 4);
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -137,16 +132,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         });
 
-        /*
-        // #SH Set adapter (뷰페이저)  notifychanged 구현하기위해 public 으로 변경
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPager.setAdapter(myPagerAdapter);
-
-        // Set PageIndicator
-        PageIndicatorView pageIndicatorView = findViewById(R.id.page_indicator_view);
-        pageIndicatorView.setCount(5); // specify total count of indicators
-        pageIndicatorView.setSelection(0);*/
-
         makeNewAppo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,6 +161,5 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void onResume(){
         super.onResume();
-        myPagerAdapter.notifyDataSetChanged();
     }
 }
