@@ -1,8 +1,10 @@
 package com.gachon.dawaga;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +65,8 @@ public class Main_fragment1 extends Fragment{
 
     // 남은 시간과 날짜, 약속 타이틀값을 받아온다 (성공)
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         if(getArguments() != null){
             leftSec = getArguments().getInt("leftSec");
             date = getArguments().getString("date");
@@ -72,13 +74,16 @@ public class Main_fragment1 extends Fragment{
             System.out.println("fragment1_leftSec : "+leftSec);
             System.out.println("fragment1_date : "+date);
             System.out.println("fragment1_title : "+title);
+
             new CountDownTask().execute(); // Starts the CountDownTask
         }else{
-            linear1.setVisibility(getView().INVISIBLE);
-            linear2.setVisibility(getView().INVISIBLE);
-            tv_title.setVisibility(getView().INVISIBLE);
-            tv_info_gone.setVisibility(getView().VISIBLE);
-            tv_info_gone.setText("약속이 없습니다.");
+            //linear1.setVisibility(getView().INVISIBLE);
+            //linear2.setVisibility(getView().INVISIBLE);
+            //tv_title.setVisibility(getView().INVISIBLE);
+            //tv_info_gone.setVisibility(getView().VISIBLE);
+            //tv_info_gone.setText("약속이 없습니다.");
+            //tv_title.setText(title + "마감시간까지");
+
         }
     }
 
@@ -181,7 +186,9 @@ public class Main_fragment1 extends Fragment{
         // 1초마다 year, day, hour, min, sec값을 values배열에 받아와서 setText.. setText에 문제가 있음
         @Override
         protected void onProgressUpdate(Integer... values) {
-            System.out.println("onProgressUpdate!!!!!!!!!!!");
+            System.out.println("called fragment1 onProgressUpdate()");
+            Log.d("fragment1","rootView == null");
+
             tv_left_year.setText(values[0]+"년");
             tv_left_day.setText(values[1]+"일");
             tv_left_hour.setText(values[2]+"시간");

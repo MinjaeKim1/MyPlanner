@@ -182,9 +182,9 @@ public class Main_fragment3 extends Fragment {
                         day = 365;
                     }
                     sec = sec - 1;
-                    publishProgress(year, day, hour, min, sec);
                 } catch (Exception e) {
                 }
+                publishProgress(year, day, hour, min, sec);
             }
             return null;
         }
@@ -192,7 +192,7 @@ public class Main_fragment3 extends Fragment {
         // 1초마다 year, day, hour, min, sec값을 values배열에 받아와서 setText.. setText에 문제가 있음
         @Override
         protected void onProgressUpdate(Integer... values) {
-            System.out.println("onProgressUpdate!!!!!!!!!!!");
+            System.out.println("called fragment3 onProgressUpdate()");
             tv_left_year.setText(values[0] + "년");
             tv_left_day.setText(values[1] + "일");
             tv_left_hour.setText(values[2] + "시간");
