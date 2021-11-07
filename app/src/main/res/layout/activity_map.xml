@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="DAWAGA"
+                android:text="MyPlanner"
                 android:textSize="30dp"
                 android:layout_marginRight="20dp"
                 android:textColor="@color/white"
@@ -61,28 +61,25 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내 위치 공유"
+            android:id="@+id/sharelocation"
+            android:layout_width="113dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="13dp"
-            android:id="@+id/sharelocation">
-        </Button>
+            android:text="Share Location"></Button>
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/loadFriend"
+            android:layout_width="117dp"
             android:layout_height="wrap_content"
-            android:text="친구 위치 로드"
             android:layout_marginLeft="10dp"
-            android:id="@+id/loadFriend">
-        </Button>
+            android:text="Load Friend Location"></Button>
 
         <Button
+            android:id="@+id/appearFriend"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="친구 위치 표시"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:id="@+id/appearFriend">
-        </Button>
+            android:text="Show Friend Location"></Button>
 
     </LinearLayout>
 

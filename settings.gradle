@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Dawaga"
+rootProject.name = "MyPlanner"

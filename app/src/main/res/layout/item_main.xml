@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textColor="?android:attr/textColorPrimary"
-                        android:text="소프트웨어공학 회의"
+                        android:text="Chemistry Test"
                         android:layout_marginLeft="20dp"
                         />
 
@@ -46,7 +46,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="약속 날짜"
+                        android:text="Date"
                         android:textColor="?android:attr/textColorPrimary">
                     </TextView>
 
@@ -54,7 +54,7 @@
                         android:id="@+id/tv_datetime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2021-05-19 13:00:00"
+                        android:text="05-19-2021 13:00:00"
                         android:layout_marginLeft="20dp"
                         android:textColor="?android:attr/textColorSecondary"
                         android:textSize="14sp"
@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="남은 시간"
+                        android:text="Time Left"
                         android:textColor="?android:attr/textColorPrimary">
                     </TextView>
 
@@ -72,7 +72,7 @@
                         android:id="@+id/tv_lefttime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2021-05-19 13:00:00"
+                        android:text="05-19-2021 13:00:00"
                         android:layout_marginLeft="20dp"
                         android:textColor="?android:attr/textColorSecondary"
                         android:textSize="14sp"

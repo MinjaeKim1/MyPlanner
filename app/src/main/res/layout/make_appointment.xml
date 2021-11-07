@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="약속 이름" />
+            android:text="Appointment Name" />
 
         <EditText
             android:id="@+id/appoName"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/teal_200"
-            android:text="날짜" />
+            android:text="Date" />
 
         <EditText
             android:id="@+id/editDate"
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/teal_200"
-            android:text="시간" />
+            android:text="Time" />
 
         <EditText
             android:id="@+id/editTime"
@@ -76,13 +76,13 @@
 
         <CheckBox
             android:id="@+id/lateMoney"
-            android:layout_width="wrap_content"
+            android:layout_width="99dp"
             android:layout_height="wrap_content"
-            android:text="지각비" />
+            android:text="Late Fee" />
 
         <EditText
             android:id="@+id/editLateMoney"
-            android:layout_width="120dp"
+            android:layout_width="107dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:gravity="right"
@@ -92,7 +92,7 @@
             android:id="@+id/meetingMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회비" />
+            android:text="Related Fees" />
 
         <EditText
             android:id="@+id/editMeeingMoney"
@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="준비시간" />
+            android:text="Ready Time" />
 
         <EditText
             android:id="@+id/readyHour"
@@ -133,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:text="여유시간" />
+            android:text="Leeway Time" />
 
         <EditText
             android:id="@+id/marginHour"
@@ -179,21 +179,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="알람 여부" />
+        android:text="Alarm" />
 
     <CheckBox
         android:id="@+id/checkLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="위치 정보 공유" />
+        android:text="Share Location" />
 
     <CheckBox
         android:id="@+id/checkTimeLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="남은 시간 공유" />
+        android:text="Share Time Left" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -201,23 +201,23 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btnAddFriendsToAppo"
-            android:text="친구 추가"
-            android:padding="10dp"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
             android:background="@color/teal_200"
-            android:layout_marginLeft="110dp"/>
+            android:padding="10dp"
+            android:text="Add Friend to Appointment" />
 
         <Button
             android:id="@+id/btnMakeAppointment"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
             android:background="@color/teal_200"
             android:padding="10dp"
-            android:text="약속 생성하기"
-            android:layout_marginLeft="10dp"/>
-
+            android:text="Create Appointment" />
 
 
     </LinearLayout>

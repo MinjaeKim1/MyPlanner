@@ -41,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_profile"
             app:layout_constraintTop_toBottomOf="@+id/iv_profile"
-            tools:text="abc@gacho.ac.kr 님" />
+            tools:text="abc@gacho.ac.kr" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            android:text="환영합니다!" />
+            android:text="Welcome!" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_fill"
-        android:text="DAWAGA"
+        android:text="MyPlanner"
         android:textSize="40sp"
         android:textStyle="bold"
         android:fontFamily="@font/cafe24surround"
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="Are you not our member yet?"
+            android:text="Are you not a member yet?"
             android:textSize="15sp"
             android:fontFamily="@font/cafe24regular"/>
         <Button

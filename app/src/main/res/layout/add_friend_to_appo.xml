@@ -20,14 +20,14 @@
                 android:id="@+id/editFriendEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="이메일" />
+                android:hint="Email" />
 
             <Button
                 android:id="@+id/btnAddFriend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/editFriendEmail"
-                android:text="이메일 추가하기" />
+                android:text="Add Email" />
 
             <ListView
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="친구목록"
+                android:text="Friend List"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_margin="9dp"/>
@@ -55,7 +55,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="불러오기"
+                android:text="Load"
                 android:id="@+id/btnCallFriends"/>
 
             <ListView
@@ -72,5 +72,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="확인" />
+        android:text="Complete" />
 </LinearLayout>

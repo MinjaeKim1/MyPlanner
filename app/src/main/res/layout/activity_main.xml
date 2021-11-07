@@ -34,10 +34,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="DAWAGA"
+                        android:text="MyPlanner"
                         android:textSize="30dp"
                         android:textColor="@color/white"
-                        android:layout_marginRight="70dp"
+                        android:layout_marginRight="20dp"
                         android:textStyle="bold">
                     </TextView>
                 </androidx.appcompat.widget.Toolbar>
@@ -49,7 +49,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="15dp"
                     android:fontFamily="@font/cafe24surround"
-                    android:text="나의 약속 리스트"
+                    android:text="To-do List"
                     android:textSize="30sp"
                     android:layout_gravity="center"
                     >

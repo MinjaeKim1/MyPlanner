@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="DAWAGA"
+            android:text="MyPlanner"
             android:textSize="30dp"
             android:layout_marginRight="20dp"
             android:textColor="@color/white"
@@ -30,12 +30,12 @@
         android:id="@+id/appendFriend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="친구 추가" />
+        android:text="Add Friend" />
     <Button
         android:id="@+id/loadFriend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="친구 목록 불러오기" />
+        android:text="Friend list" />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

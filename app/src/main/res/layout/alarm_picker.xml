@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
-            android:text="일"
+            android:text="Day"
             />
         <NumberPicker
             android:id="@+id/hourPicker"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
-            android:text="시간"/>
+            android:text="Hr"/>
 
         <NumberPicker
             android:id="@+id/minutePicker"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
-            android:text="분"
+            android:text="Min"
             />
     </LinearLayout>
     <Button
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="mOnClick"
-        android:text="확인" />
+        android:text="Complete" />
 
 
 </LinearLayout>
