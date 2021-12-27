@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appointment Name" />
+
+        <EditText
+            android:id="@+id/appoName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            android:text="Date" />
+
+        <EditText
+            android:id="@+id/editDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="yyyy/mm/dd" />
+
+    </LinearLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            android:text="Time" />
+
+        <EditText
+            android:id="@+id/editTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hh:mm" />
+    </LinearLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/lateMoney"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:text="Late Fee" />
+
+        <EditText
+            android:id="@+id/editLateMoney"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:text="0" />
+
+        <CheckBox
+            android:id="@+id/meetingMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Related Fees" />
+
+        <EditText
+            android:id="@+id/editMeeingMoney"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="0" />
+
+    </LinearLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Ready Time" />
+
+        <EditText
+            android:id="@+id/readyHour"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="hh" />
+
+        <EditText
+            android:id="@+id/readyMin"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="mm" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Leeway Time" />
+
+        <EditText
+            android:id="@+id/marginHour"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="hh" />
+
+        <EditText
+            android:id="@+id/marginMin"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="mm" />
+
+    </LinearLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:id="@+id/alarmSect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            android:text="알람설정" />
+
+        <EditText
+            android:id="@+id/editAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Before: dd/hh/mm" />
+    </LinearLayout>
+
+
+    <CheckBox
+        android:id="@+id/checkAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Alarm" />
+
+    <CheckBox
+        android:id="@+id/checkLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Share Location" />
+
+    <CheckBox
+        android:id="@+id/checkTimeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Share Time Left" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAddFriendsToAppo"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
+            android:background="@color/teal_200"
+            android:padding="10dp"
+            android:text="Add Friend to Appointment" />
+
+        <Button
+            android:id="@+id/btnMakeAppointment"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/teal_200"
+            android:padding="10dp"
+            android:text="Create Appointment" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

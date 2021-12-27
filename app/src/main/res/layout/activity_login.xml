@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/mainColor">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_fill"
+        android:text="MyPlanner"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/cafe24surround"
+        android:textColor="#F5FFFA"
+        android:gravity="center"
+        android:layout_marginTop= "20dp"
+        android:layout_marginBottom= "20dp"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/dawaga_logo"/>
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:textSize="13sp"
+        android:textAlignment="center"
+        android:background="@drawable/edit_round"
+        android:inputType="textEmailAddress"
+        android:hint="E-mail"
+        android:fontFamily="@font/cafe24regular"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/edit_round"
+        android:inputType="textPassword"
+        android:textSize="13sp"
+        android:textAlignment="center"
+        android:hint="Enter Password"
+        android:fontFamily="@font/cafe24regular"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        />
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:fontFamily="@font/cafe24surround"
+            android:text="Sign in" />
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="#28BAE8"
+            android:fontFamily="@font/cafe24surround"
+            android:text="Sign up"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id ="@+id/snsLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Sign in by another ID"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/cafe24regular"
+            android:gravity="center"
+            android:padding="10dp"/>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/googleLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign in"
+            android:ems="10"
+            android:layout_marginBottom="5dp"/>
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebookLogin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:text="Are you not a member yet?"
+            android:textSize="15sp"
+            android:fontFamily="@font/cafe24regular"/>
+        <Button
+            android:id="@+id/signUpButton_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#00ffffff"
+            android:fontFamily="@font/cafe24surround"
+            android:text="Sign Up"/>
+    </LinearLayout>
+
+</LinearLayout>
